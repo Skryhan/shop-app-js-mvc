@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Store app</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+
+    <main id="main">
+
+        <aside>
+
+            <header class="header aside-stores">
+                <h2>Stores list</h2>
+            </header>
+
+            <div class="header content-aside">
+                <div class="stores-search-input-wrap">
+                    <input class="stores-search-input" type="text" placeholder="Search">
+                    <i class="far fa-times-circle icon-cross-stores non-active"></i>
+                    <i class="fas fa-search icon-search-stores" title="Search"></i>
+                    <i class="fas fa-sync-alt icon-refresh-stores" title="Refresh"></i>
+                </div>
+                <div class="header-buttons">
+                    <div class="arrow header-button aside"><i class="fas fa-chevron-up" title="Collapse Header"></i>
+                    </div>
+                    <div class="fix header-button aside"><i class="fas fa-thumbtack" title="Pin header on press"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="js-articles">
+                <div class="preloader">
+                    <img src="./assets/images/preloader.gif" alt="">
+                </div>
+            </div>
+
+            <footer class="footer aside">
+                <div class="footer-wrap">
+                    <div class="footer-main">
+                        <button class="footer-btn footer-btn-create-store"><i class="fas fa-plus"></i>Create</button>
+                    </div>
+                </div>
+            </footer>
+
+        </aside>
+
+        <div class="modal-wrapper modal-wrapper-create-store">
+            <div class="modal modal-create-store">
+                <div class="modal-header">
+                    <h4>Create new store</h4>
+                </div>
+                <form class="form" id="formCreateStore" method="POST" >
+                    <label>
+                        <p><span>*</span>Name:</p>
+                        <input type="text" placeholder="Enter name" class="input" name="Name">
+                    </label>
+                    <label>
+                        <p><span>*</span>Email: <span id="email-message"></span></p>
+                        <input type="email" placeholder="Enter email" class="input" id="email" name="Email">
+                    </label>
+                    <label>
+                        <p><span>*</span>Phone Number: <span id="phone-message"></span></p>
+                        <input type="text" placeholder="Enter phone number" class="input" id="phone" name="PhoneNumber">
+                    </label>
+                    <label>
+                        <p><span>*</span>Addres:</p>
+                        <input type="text" placeholder="Enter Addres" class="input" name="Address">
+                    </label>
+                    <label>
+                        <p><span>*</span>Established:</p>
+                        <input type="date" placeholder="MMM d.y." class="input" name="Established">
+                    </label>
+                    <label>
+                        <p><span>*</span>FloorArea:</p>
+                        <input type="text" placeholder="Enter floor area (in sq.m)" class="input number-input" name="FloorArea">
+                    </label>
+                </form>
+                <div class="modal-footer">
+                    <div class="modal-footer-btn">
+                        <button type="button" class="btn-create-store-create">Create</button>
+                        <button class="btn-create-store-cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-wrapper modal-wrapper-confirm-delete-store">
+            <div class="modal">
+                <div class="modal-header">
+                    <h4><i class="far fa-question-circle"></i>Confirmation</h4>
+                </div>
+                <div class="modal-main">
+                    <p class="confirm-text">Are you sure you want delete this store?</p>
+                </div>
+                <div class="modal-footer-btn confirm">
+                    <button class="btn-confirm-del-store-ok">Ok</button>
+                    <button class="btn-confirm-del-store-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="section-store-details">
+
+            <header class="header section-products">
+                <div class="js-header-title"></div>
+            </header>
+
+            <div class="first-header-section"></div>
+
+            <div class="second-header-section">
+                <div class="header-buttons">
+                    <div class="arrow header-button section"><i class="fas fa-chevron-up"></i></div>
+                    <div class="fix header-button section"><i class="fas fa-thumbtack"></i></div>
+                </div>
+                <div class="header-content">
+                    <div class="header-text active" about="statusAll">
+                        <span class="store-amount"></span>
+                        <p>All</p>
+                    </div>
+                    <div class="store-details-icons">
+                        <div class="store-details-icon">
+                            <div class="header-ok" about="statusOK">
+                                <i class="far fa-check-square"></i>
+                                <p>Ok</p>
+                                <div class="status-ok amount"></div>
+                            </div>
+                        </div>
+                        <div class="store-details-icon">
+                            <div class="header-storage" about="statusStorage">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <p>Storage</p>
+                                <div class="status-storage amount">${statusStorage}</div>
+                            </div>
+                        </div>
+                        <div class="store-details-icon">
+                            <div class="header-out" about="statusOK">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <p>Out of stock</p>
+                                <div class="status-out amount">${statusOut}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-main-content-wrapper">
+                <div class="table-title">
+                    <h2>Products</h2>
+                    <div class="products-search-input-wrap">
+                                <input class="products-search-input" type="text" placeholder="Search">
+                                <i class="far fa-times-circle icon-cross-products non-active"></i>
+                                <i class="fas fa-search icon-search-products" title="Search"></i>
+                                <i class="fas fa-sync-alt icon-refresh-products" title="Refresh"></i>
+                            </div>
+                </div>
+                <div class="table-wrapper"></div>
+            </div>            
+
+            <footer class="footer section">
+                <div class="footer-wrap">
+                    <div class="footer-main">
+                        <button class="footer-btn footer-btn-create-product"><i class="fas fa-plus"></i>Create</button>
+                        <button class="footer-btn delete-store"><i class="fas fa-trash-alt"></i>Delete</button>
+                    </div>
+                </div>
+            </footer>
+
+        </section>
+
+        <div class="modal-wrapper modal-wrapper-confirm-delete-product">
+            <div class="modal">
+                <div class="modal-header">
+                    <h4><i class="far fa-question-circle"></i>Confirmation</h4>
+                </div>
+                <div class="modal-main">
+                    <p class="confirm-text">Are you sure you want delete this product?</p>
+                </div>
+                <div class="modal-footer-btn confirm">
+                    <button class="btn-confirm-del-prod-ok">Ok</button>
+                    <button class="btn-confirm-del-prod-cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-wrapper modal-wrapper-create-product">
+            <div class="modal modal-create-product">
+                <div class="modal-header">
+                    <h4>Create new product</h4>
+                </div>
+                <form class="form" id="formCreateProduct" method="POST">
+                    <label>
+                        <p><span>*</span>Name:</p>
+                        <input type="text" placeholder="Enter name" class="input" name="Name">
+                    </label>
+                    <label>
+                        <p><span>*</span>Price:</p>
+                        <div class="modal-input-price-wrap">
+                            <input type="text" placeholder="Enter price" class="input input-price number-input" name="Price">
+                            <p class="currency">USD</p>
+                        </div>
+                    </label>
+                    <label>
+                        <p><span>*</span>Specs:</p>
+                        <input type="text" placeholder="Enter product specs" class="input" name="Specs">
+                    </label>
+                    <label>
+                        <p><span>*</span>Rating:</p>
+                        <input type="text" placeholder="Enter rating 1...5" class="input number-input" name="Rating">
+                    </label>
+                    <label>
+                        <p><span>*</span>Supplier info:</p>
+                        <input type="text" placeholder="Enter supplier info" class="input input-supplier-info" name="SupplierInfo">
+                    </label>
+                    <label>
+                        <p><span>*</span>Made in:</p>
+                        <input type="text" placeholder="Enter origin country" class="input" name="MadeIn">
+                    </label>
+                    <label>
+                        <p><span>*</span>Production company name:</p>
+                        <input type="text" placeholder="Enter manufacturer name" class="input" name="ProductionCompanyName">
+                    </label>
+                    <label>
+                        <p><span>*</span>Status:</p>
+                        <select name="Status">
+                            <option value="OK" selected>Ok</option>
+                            <option value="OUT_OF_STOCK">Out of stock</option>
+                            <option value="STORAGE">Storage</option>
+                        </select>
+                    </label>
+                </form>
+                <div class="modal-footer">
+                    <div class="modal-footer-btn">
+                        <button class="btn-create-product-create">Create</button>
+                        <button class="btn-create-product-cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="popup">
+            <div class="popup-text"></div>
+        </div>
+
+    </main>
+
+    <script src="js.js"></script>
+
+</body>
+
+</html>
